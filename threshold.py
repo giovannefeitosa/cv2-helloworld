@@ -6,6 +6,9 @@ img = cv2.imread("assets/sample.jpg")
 
 img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
+# --------------------------------------------------
+# Simple thresholding
+
 # threshold value
 # * lower, more dark
 # * higher, more light
@@ -35,7 +38,25 @@ threshold, thresh_inv = cv2.threshold(
     cv2.THRESH_BINARY_INV,
 )
 
+# --------------------------------------------------
+# Adaptive thresholding
+adaptive_thresh = cv2.adaptiveThreshold(
+    img_gray,
+    255,
+    cv2.ADAPTIVE_THRESH_MEAN_C,
+    cv2.THRESH_BINARY,
+    # block size
+    # * bigger, more blur
+    # * smaller, more sharp
+    5,
+    # C value
+    8,
+)
+
+# --------------------------------------------------
+
 cv2.imshow("Thresh", thresh)
 cv2.imshow("Thresh inv", thresh_inv)
+cv2.imshow("Adaptive thresh", adaptive_thresh)
 
 cv2.waitKey(0)
